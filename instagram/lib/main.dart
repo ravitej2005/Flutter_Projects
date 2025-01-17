@@ -38,171 +38,42 @@ class MainApp extends StatelessWidget {
                       ],
                     ),
                     Container(
-                      padding: EdgeInsets.all(10),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(right: 17),
-                              child: Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 39,
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 85, 229, 53),
-                                    child: CircleAvatar(
-                                      radius: 34,
-                                      backgroundImage: NetworkImage(
-                                        "https://th.bing.com/th/id/OIP.Oi5YjDy4agUTkb41nagZGwHaHa?w=512&h=512&rs=1&pid=ImgDetMain",
+                        height: 126,
+                        padding: EdgeInsets.all(10),
+                        child: ListView.builder(
+                            itemCount: 20,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: EdgeInsets.only(right: 17),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(61),
+                                        border: Border.all(
+                                            color: Colors.green, width: 5),
+                                      ),
+                                      child: CircleAvatar(
+                                        radius: 34,
+                                        backgroundImage: NetworkImage(
+                                          "https://i.pinimg.com/736x/c4/1c/6a/c41c6af58f15f3a42f977bbfe5f6c102.jpg",
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Your story",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 10),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(right: 17),
-                              child: Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 39,
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 85, 229, 53),
-                                    child: CircleAvatar(
-                                      radius: 34,
-                                      backgroundImage: NetworkImage(
-                                        "https://static-cdn.jtvnw.net/jtv_user_pictures/0f312ced-a2e2-4c97-a50a-0410c99f4669-profile_image-300x300.png",
-                                      ),
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "horcus",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 10),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(right: 17),
-                              child: Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 39,
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 85, 229, 53),
-                                    child: CircleAvatar(
-                                      radius: 34,
-                                      backgroundImage: NetworkImage(
-                                        "https://whytrending.in/wp-content/uploads/2024/01/2-1-jpg.webp",
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "ezsnippet",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 10),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(right: 17),
-                              child: Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 39,
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 85, 229, 53),
-                                    child: CircleAvatar(
-                                      radius: 34,
-                                      backgroundImage: NetworkImage(
-                                        "https://yt3.ggpht.com/a/AGF-l7-P0WLLa1PtOA6ToCBtdLi1krgSKbdqYP7FEw=s900-c-k-c0xffffffff-no-rj-mo",
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Shinchan",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 10),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(right: 17),
-                              child: Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 39,
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 85, 229, 53),
-                                    child: CircleAvatar(
-                                      radius: 34,
-                                      backgroundImage: NetworkImage(
-                                        "https://logos-download.com/wp-content/uploads/2021/01/Valorant_Logo.png",
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Valorant",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 10),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(right: 17),
-                              child: Column(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 39,
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 85, 229, 53),
-                                    child: CircleAvatar(
-                                      radius: 34,
-                                      backgroundImage: NetworkImage(
-                                        "https://i.pinimg.com/736x/c4/1c/6a/c41c6af58f15f3a42f977bbfe5f6c102.jpg",
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Kira_Official",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 10),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                                    Text(
+                                      "Kira_Official",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 10),
+                                    )
+                                  ],
+                                ),
+                              );
+                            })),
                     Container(
                       // height: 500,
                       child: ListView.builder(
