@@ -36,11 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     controller: nameController,
                     onFieldSubmitted: (value) {
                       debugPrint(value);
-                      setState(() {
-                        ToDoList.add(value);
-                      });
-                      // value = "";
-                      nameController.text = "";
+                      if (value != "") {
+                        setState(() {
+                          ToDoList.add(value);
+                        });
+                        nameController.text = "";
+                      }
                     },
                   ),
                 ),
@@ -50,10 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     minimumSize: WidgetStatePropertyAll(Size(100, 50)),
                   ),
                   onPressed: () {
-                    setState(() {
-                      ToDoList.add(nameController.text);
-                    });
-                    nameController.text = "";
+                    if (nameController.text != "") {
+                      setState(() {
+                        ToDoList.add(nameController.text);
+                      });
+                      nameController.text = "";
+                    }
                   },
                   child: Text("Add Task"),
                 ),
