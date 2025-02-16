@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:remixicon/remixicon.dart';
 
 class question_screen extends StatefulWidget {
   final questionObj;
   final questionIndex;
   final updateSubmitState;
+  final updateCorrectCount;
   const question_screen(
       {required this.questionObj,
       required this.questionIndex,
       required this.updateSubmitState,
+      required this.updateCorrectCount,
       super.key});
 
   @override
@@ -16,10 +19,74 @@ class question_screen extends StatefulWidget {
 
 // bool isSelected = false;
 var selectedOption = null;
+var correctAnsCount = 0;
 
 class _question_screenState extends State<question_screen> {
+  Color? giveTitleColor(int index) {
+    if (widget.questionObj.isSubmitted == true) {
+      if (selectedOption == widget.questionObj.correctOptionIndex) {
+        if (index == selectedOption) {
+          return Colors.green[50];
+        } else {
+          return null;
+        }
+      } else {
+        if (index == selectedOption) {
+          return Colors.red[100];
+        } else {
+          if (index == widget.questionObj.correctOptionIndex) {
+            return Colors.green[50];
+          } else {
+            return null;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  Icon? giveSecondaryIcon(int index) {
+    if (widget.questionObj.isSubmitted == true) {
+      if (selectedOption == widget.questionObj.correctOptionIndex) {
+        if (index == selectedOption) {
+          return const Icon(
+            Remix.check_line,
+            color: Colors.green,
+            size: 23,
+          );
+        } else {
+          return null;
+        }
+      } else {
+        if (index == selectedOption) {
+          return const Icon(
+            Remix.close_fill,
+            color: Colors.red,
+            size: 23,
+          );
+        } else {
+          if (index == widget.questionObj.correctOptionIndex) {
+            return const Icon(
+              Remix.check_line,
+              color: Colors.green,
+              size: 23,
+            );
+          } else {
+            return null;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (selectedOption == widget.questionObj.correctOptionIndex) {
+      correctAnsCount++;
+      widget.updateCorrectCount(correctAnsCount);
+    }
+
     return Center(
       child: Container(
         decoration: const BoxDecoration(
@@ -76,28 +143,36 @@ class _question_screenState extends State<question_screen> {
                 itemCount: widget.questionObj.options.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return RadioListTile(
-                    activeColor: Colors.red,
-                    // materialTapTargetSize: MaterialTapTargetSize.padded,
-                    tileColor: widget.questionObj.isSubmitted &&
-                            index == widget.questionObj.correctOptionIndex
-                        ? Colors.green[500]
-                        : null,
-                    dense: true,
-                    value: "${widget.questionObj.options[index]}",
-                    groupValue: selectedOption,
-                    onChanged: (selectedOpt) {
-                      setState(() {
-                        selectedOption = selectedOpt;
-                      });
-                    },
-                    title: Text(
-                      "${widget.questionObj.options[index]}",
-                      style: const TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.black,
+                  print("in listview builder $selectedOption");
+                  print("correct opt ${widget.questionObj.correctOptionIndex}");
+                  print("submit status ${widget.questionObj.isSubmitted}");
+                  print(
+                      "calculation ${(widget.questionObj.isSubmitted == true) && (selectedOption == widget.questionObj.correctOptionIndex)}");
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: giveTitleColor(index),
+                    ),
+                    child: RadioListTile(
+                      selected: false,
+                      secondary: giveSecondaryIcon(index),
+                      // tileColor: Colors.white,
+                      // materialTapTargetSize: MaterialTapTargetSize.padded,
+                      dense: true,
+                      value: index,
+                      groupValue: selectedOption,
+                      onChanged: (selectedOpt) {
+                        setState(() {
+                          selectedOption = selectedOpt;
+                        });
+                      },
+                      title: Text(
+                        "${widget.questionObj.options[index]}",
+                        style: const TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   );

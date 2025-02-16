@@ -4,7 +4,8 @@ import 'package:quiz_application/question.dart';
 import 'package:remixicon/remixicon.dart';
 
 class score extends StatelessWidget {
-  const score({super.key});
+  final correctAnsCount;
+  const score({this.correctAnsCount, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +57,9 @@ class score extends StatelessWidget {
                   ),
                   width: 90,
                   height: 60,
-                  child: const Text(
-                    "Score :",
-                    style: TextStyle(
+                  child: Text(
+                    "$correctAnsCount",
+                    style: const TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w600,
                       fontSize: 15,
@@ -117,7 +118,7 @@ class score extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return MainApp();
+                  return const MainApp();
                 }));
               },
               style: ElevatedButton.styleFrom(

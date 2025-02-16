@@ -9,6 +9,7 @@ class quiz extends StatefulWidget {
   TextEditingController nameController;
   bool quizCompleted = false;
   int index = 0;
+  int correctAnsCount = 0;
   quiz({required this.nameController, super.key});
 
   @override
@@ -23,6 +24,10 @@ class _quizState extends State<quiz> {
         widget.quizCompleted = true;
       }
     });
+  }
+
+  void updateCorrectCount(int correctAnsCount) {
+    widget.correctAnsCount = correctAnsCount;
   }
 
   @override
@@ -45,7 +50,7 @@ class _quizState extends State<quiz> {
                   } else if (widget.index == dummyQuestions.length - 1) {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return score();
+                      return score(correctAnsCount: widget.correctAnsCount);
                     }));
                   }
                 },
@@ -92,6 +97,7 @@ class _quizState extends State<quiz> {
         questionObj: dummyQuestions[widget.index],
         questionIndex: widget.index,
         updateSubmitState: updateSubmitState,
+        updateCorrectCount: updateCorrectCount,
       ),
     );
   }
