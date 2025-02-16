@@ -14,7 +14,7 @@ class msgPage extends StatelessWidget {
         backgroundColor: Colors.black,
         iconTheme: IconThemeData(color: Colors.white),
         title: Text(
-          "${dummydata[0].userId}",
+          "ravitejmulay",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,
@@ -43,7 +43,7 @@ class msgPage extends StatelessWidget {
               ListView.builder(
                 // scrollDirection: Axis.vertical,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: dummydata.length - 1,
+                itemCount: dummydata.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return chatProfile(index: index);

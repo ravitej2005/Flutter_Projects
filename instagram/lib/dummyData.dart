@@ -4,11 +4,12 @@ class dummyData {
   String? userId;
   String? songName;
   String? postImgUrl;
-  int? likeCount;
-  int? commentCount;
-  int? shareCount;
+  int likeCount = 0;
+  int? commentCount = 0;
+  int? shareCount = 0;
   String? caption;
   String? date;
+  bool isLiked = false;
 
   dummyData(
       this.profileUrl,
@@ -24,17 +25,6 @@ class dummyData {
 }
 
 List<dummyData> dummydata = [
-  dummyData(
-      "https://th.bing.com/th/id/OIP.Oi5YjDy4agUTkb41nagZGwHaHa?w=512&h=512&rs=1&pid=ImgDetMain",
-      "Your story",
-      "ravitejmulay",
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null),
   dummyData(
     "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg",
     "Ed Sheeran",

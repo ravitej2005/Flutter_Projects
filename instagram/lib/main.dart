@@ -27,65 +27,63 @@ class homeScreen extends StatelessWidget {
                 children: [
                   AppBar(
                     backgroundColor: Colors.black,
-                    title: Text(
+                    title: const Text(
                       "Instagram",
                       style: TextStyle(fontSize: 24, color: Colors.white),
                     ),
                     actions: [
                       Container(
-                        child: Icon(
+                        child: const Icon(
                           Icons.favorite_border_outlined,
                           color: Colors.white,
                         ),
-                        margin: EdgeInsets.only(right: 10),
+                        margin: const EdgeInsets.only(right: 10),
                       ),
                       Container(
+                        margin: const EdgeInsets.only(right: 10),
                         child: IconButton(
                           onPressed: () {
                             // print("Hello");
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => msgPage()));
+                                    builder: (context) => const msgPage()));
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.near_me,
                             color: Colors.white,
                           ),
                         ),
-                        margin: EdgeInsets.only(right: 10),
                       )
                     ],
                   ),
                   Container(
-                      height: 126,
-                      // color: Colors.blueAccent,
-                      padding: EdgeInsets.all(10),
-                      child: ListView.builder(
-                          itemCount: dummydata.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return stories(index: index);
-                          })),
-                  Container(
-                    // height: 500,
-                    // color: Colors.amber,
+                    height: 126,
+                    // color: Colors.blueAccent,
+                    padding: const EdgeInsets.all(10),
                     child: ListView.builder(
-                      itemCount: dummydata.length - 1,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: dummydata.length,
+                      scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return post(index: index);
+                        return stories(index: index);
                       },
                     ),
+                  ),
+                  ListView.builder(
+                    itemCount: dummydata.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return post(index: index);
+                    },
                   ),
                 ],
               ),
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10),
-            child: Row(
+            padding: const EdgeInsets.all(10),
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Icon(
