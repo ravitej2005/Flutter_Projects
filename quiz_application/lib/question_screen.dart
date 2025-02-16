@@ -6,7 +6,7 @@ class question_screen extends StatefulWidget {
   final questionIndex;
   final updateSubmitState;
   final updateCorrectCount;
-  const question_screen(
+  question_screen(
       {required this.questionObj,
       required this.questionIndex,
       required this.updateSubmitState,
@@ -18,20 +18,20 @@ class question_screen extends StatefulWidget {
 }
 
 // bool isSelected = false;
-var selectedOption = null;
 var correctAnsCount = 0;
 
 class _question_screenState extends State<question_screen> {
   Color? giveTitleColor(int index) {
     if (widget.questionObj.isSubmitted == true) {
-      if (selectedOption == widget.questionObj.correctOptionIndex) {
-        if (index == selectedOption) {
+      if (widget.questionObj.selectedOption ==
+          widget.questionObj.correctOptionIndex) {
+        if (index == widget.questionObj.selectedOption) {
           return Colors.green[50];
         } else {
           return null;
         }
       } else {
-        if (index == selectedOption) {
+        if (index == widget.questionObj.selectedOption) {
           return Colors.red[100];
         } else {
           if (index == widget.questionObj.correctOptionIndex) {
@@ -47,8 +47,9 @@ class _question_screenState extends State<question_screen> {
 
   Icon? giveSecondaryIcon(int index) {
     if (widget.questionObj.isSubmitted == true) {
-      if (selectedOption == widget.questionObj.correctOptionIndex) {
-        if (index == selectedOption) {
+      if (widget.questionObj.selectedOption ==
+          widget.questionObj.correctOptionIndex) {
+        if (index == widget.questionObj.selectedOption) {
           return const Icon(
             Remix.check_line,
             color: Colors.green,
@@ -58,7 +59,7 @@ class _question_screenState extends State<question_screen> {
           return null;
         }
       } else {
-        if (index == selectedOption) {
+        if (index == widget.questionObj.selectedOption) {
           return const Icon(
             Remix.close_fill,
             color: Colors.red,
@@ -82,7 +83,8 @@ class _question_screenState extends State<question_screen> {
 
   @override
   Widget build(BuildContext context) {
-    if (selectedOption == widget.questionObj.correctOptionIndex) {
+    if ((widget.questionObj.selectedOption ==
+        widget.questionObj.correctOptionIndex) && widget.questionObj.isSubmitted) {
       correctAnsCount++;
       widget.updateCorrectCount(correctAnsCount);
     }
@@ -143,11 +145,12 @@ class _question_screenState extends State<question_screen> {
                 itemCount: widget.questionObj.options.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  print("in listview builder $selectedOption");
+                  print(
+                      "in listview builder $widget.questionObj.selectedOption");
                   print("correct opt ${widget.questionObj.correctOptionIndex}");
                   print("submit status ${widget.questionObj.isSubmitted}");
                   print(
-                      "calculation ${(widget.questionObj.isSubmitted == true) && (selectedOption == widget.questionObj.correctOptionIndex)}");
+                      "calculation ${(widget.questionObj.isSubmitted == true) && (widget.questionObj.selectedOption == widget.questionObj.correctOptionIndex)}");
                   return Container(
                     decoration: BoxDecoration(
                       color: giveTitleColor(index),
@@ -159,11 +162,13 @@ class _question_screenState extends State<question_screen> {
                       // materialTapTargetSize: MaterialTapTargetSize.padded,
                       dense: true,
                       value: index,
-                      groupValue: selectedOption,
+                      groupValue: widget.questionObj.selectedOption,
                       onChanged: (selectedOpt) {
-                        setState(() {
-                          selectedOption = selectedOpt;
-                        });
+                        widget.questionObj.isSubmitted
+                            ? null
+                            : setState(() {
+                                widget.questionObj.selectedOption = selectedOpt;
+                              });
                       },
                       title: Text(
                         "${widget.questionObj.options[index]}",

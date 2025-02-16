@@ -13,8 +13,9 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     dummyQuestions.forEach((Question) {
       Question.isSubmitted = false;
+      Question.selectedOption = null;
     });
-    
+
     return MaterialApp(
       home: home(),
     );

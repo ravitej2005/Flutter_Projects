@@ -3,6 +3,7 @@ class Question {
   List<String> options = [];
   int correctOptionIndex;
   bool isSubmitted = false;
+  int ?selectedOption;
 
   Question(
       {required this.problem,
