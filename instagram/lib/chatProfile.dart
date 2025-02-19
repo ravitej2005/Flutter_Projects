@@ -14,11 +14,13 @@ class chatProfile extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
       onTap: () => {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => personalchatpage(
-                      index: index,
-                    )))
+          context,
+          MaterialPageRoute(
+            builder: (context) => personalchatpage(
+              index: index,
+            ),
+          ),
+        )
       },
       leading: CircleAvatar(
         backgroundImage: NetworkImage("${dummydata[index].profileUrl}"),

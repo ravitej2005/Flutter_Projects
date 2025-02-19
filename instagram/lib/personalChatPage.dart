@@ -28,9 +28,10 @@ class personalchatpage extends StatelessWidget {
                   Text(
                     "${dummydata[index].userName}",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
                   ),
                   Text(
                     "${dummydata[index].userId}",
@@ -64,9 +65,12 @@ class personalchatpage extends StatelessWidget {
             Container(
               height: 50,
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 31, 31, 31),
-                  borderRadius: BorderRadius.horizontal(
-                      left: Radius.circular(30), right: Radius.circular(30))),
+                color: const Color.fromARGB(255, 31, 31, 31),
+                borderRadius: BorderRadius.horizontal(
+                  left: Radius.circular(30),
+                  right: Radius.circular(30),
+                ),
+              ),
             )
           ],
         ),

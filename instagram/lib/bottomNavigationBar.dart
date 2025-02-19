@@ -5,39 +5,57 @@ class bottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(
+    // ignore: prefer_const_literals_to_create_immutables
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: Colors.black, // Background color
+      selectedItemColor: Colors.white, // Selected item color
+      unselectedItemColor: Colors.grey, // Unselected item color
+      selectedFontSize: 12, // Font size for the selected item
+      unselectedFontSize: 12,
+      items: const [
+        BottomNavigationBarItem(
+          label: "Home",
+          icon: Icon(
             Icons.home_filled,
             color: Colors.white,
             size: 30,
           ),
-          Icon(
+          
+        ),
+        BottomNavigationBarItem(
+          label: "Search",
+          icon: Icon(
             Icons.search_rounded,
             color: Colors.white,
             size: 30,
           ),
-          Icon(
+        ),
+        BottomNavigationBarItem(
+          label: "Upload",
+          icon: Icon(
             Icons.add_box_outlined,
             color: Colors.white,
             size: 30,
           ),
-          Icon(
+        ),
+        BottomNavigationBarItem(
+          label: "Reels",
+          icon: Icon(
             Icons.video_collection_outlined,
             color: Colors.white,
             size: 30,
           ),
-          CircleAvatar(
-            radius: 15,
-            backgroundImage: NetworkImage(
-              "https://th.bing.com/th/id/OIP.Oi5YjDy4agUTkb41nagZGwHaHa?w=512&h=512&rs=1&pid=ImgDetMain",
-            ),
+        ),
+        BottomNavigationBarItem(
+          label: "Profile",
+          icon: Icon(
+            Icons.account_circle_outlined,
+            color: Colors.white,
+            size: 30,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

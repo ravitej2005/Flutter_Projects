@@ -2,34 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:instagram/dummyData.dart';
 
 class stories extends StatelessWidget {
-  final index;
-  const stories({super.key , this.index});
+  final int index;
+  const stories({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 17),
+      margin: const EdgeInsets.only(right: 17),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(2),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(61),
-              border: Border.all(color: Colors.green, width: 5),
+            padding: const EdgeInsets.all(3),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFFfeda75), // Yellow
+                  Color(0xFFfa7e1e), // Orange
+                  Color(0xFFd62976), // Pink
+                  Color(0xFF962fbf), // Purple
+                  Color(0xFF4f5bd5), // Blueish
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
             ),
-            child: CircleAvatar(
-              radius: 34,
-              backgroundImage: NetworkImage(
-                "${dummydata[index].profileUrl}",
+            child: Container(
+              height: 70,
+              width: 70,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.black, // Background color inside the ring
+              ),
+              padding:
+                  const EdgeInsets.all(4), // Space between profile pic and border
+              child: ClipOval(
+                child: Image.network(
+                  "${dummydata[index].profileUrl}",
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(
             "${dummydata[index].userName}",
-            style: TextStyle(color: Colors.white, fontSize: 10),
+            style: const TextStyle(color: Colors.white, fontSize: 10),
           )
         ],
       ),

@@ -44,13 +44,9 @@ class _postState extends State<post> {
                   children: [
                     CircleAvatar(
                       radius: 20,
-
                       backgroundImage: NetworkImage(
                         "${dummydata[widget.index].profileUrl}",
                       ),
-                      // child: Image.network(
-                      //     "${dummydata[index].profileUrl}"
-                      //     ),
                     ),
                     const SizedBox(
                       width: 15,
@@ -64,7 +60,9 @@ class _postState extends State<post> {
                           Text(
                             "${dummydata[widget.index].userName}",
                             style: const TextStyle(
-                                fontSize: 13, color: Colors.white),
+                              fontSize: 13,
+                              color: Colors.white,
+                            ),
                           ),
                           Row(
                             children: [
@@ -79,7 +77,9 @@ class _postState extends State<post> {
                               Text(
                                 "${dummydata[widget.index].songName}",
                                 style: const TextStyle(
-                                    fontSize: 11, color: Colors.white),
+                                  fontSize: 11,
+                                  color: Colors.white,
+                                ),
                               ),
                             ],
                           )
@@ -88,25 +88,29 @@ class _postState extends State<post> {
                     )
                   ],
                 ),
-                const Icon(
-                  Icons.more_vert_rounded,
-                  color: Colors.white,
+                GestureDetector(
+                  onTap: () {},
+                  child: const Icon(
+                    Icons.more_vert_rounded,
+                    color: Colors.white,
+                  ),
                 )
               ],
             ),
           ),
           GestureDetector(
             onDoubleTap: () {
-              setState(() {
-                if (dummydata[widget.index].isLiked == false) {
+              if (dummydata[widget.index].isLiked == false) {
+                setState(() {
                   dummydata[widget.index].likeCount += 1;
                   dummydata[widget.index].isLiked = true;
-                }
-              });
+                });
+              }
             },
             child: Container(
               margin: const EdgeInsets.only(top: 10, bottom: 10),
               height: 400,
+              width: double.infinity,
               child: Image.network(
                 "${dummydata[widget.index].postImgUrl}",
                 fit: BoxFit.cover,
@@ -114,20 +118,16 @@ class _postState extends State<post> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(left: 10, right: 10),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 3),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
-                    Row(children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        margin: const EdgeInsets.only(right: 1),
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () {
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
                             setState(() {
                               if (dummydata[widget.index].isLiked) {
                                 dummydata[widget.index].likeCount -= 1;
@@ -138,67 +138,87 @@ class _postState extends State<post> {
                               }
                             });
                           },
-                          icon: likeIcon(),
+                          child: likeIcon(),
                         ),
-                      ),
-                      Container(
-                        child: Text(
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
                           "${dummydata[widget.index].likeCount}",
                           style: const TextStyle(
-                              fontSize: 14, color: Colors.white),
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
                         ),
-                        margin: const EdgeInsets.only(right: 10),
-                      )
-                    ]),
-                    Row(children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        child: const Icon(
-                          Icons.mode_comment_outlined,
-                          color: Colors.white,
+                        const SizedBox(
+                          width: 13,
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: const Icon(
+                            Icons.mode_comment_outlined,
+                            color: Colors.white,
+                          ),
                         ),
-                        margin: const EdgeInsets.only(right: 1),
-                      ),
-                      Container(
-                        child: Text(
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
                           "${dummydata[widget.index].commentCount}",
                           style: const TextStyle(
-                              fontSize: 14, color: Colors.white),
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
                         ),
-                        margin: const EdgeInsets.only(right: 10),
-                      )
-                    ]),
-                    Row(children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        child: const Icon(
-                          Icons.near_me_rounded,
-                          color: Colors.white,
+                        const SizedBox(
+                          width: 10,
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: const Icon(
+                            Icons.near_me_rounded,
+                            color: Colors.white,
+                          ),
                         ),
-                        margin: const EdgeInsets.only(right: 1),
-                      ),
-                      Container(
-                        child: Text(
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
                           "${dummydata[widget.index].shareCount}",
                           style: const TextStyle(
-                              fontSize: 14, color: Colors.white),
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
                         ),
-                        margin: const EdgeInsets.only(right: 10),
-                      )
-                    ])
+                        const SizedBox(
+                          width: 10,
+                        )
+                      ],
+                    ),
                   ],
                 ),
-                Container(
-                  height: 30,
-                  width: 30,
-                  child: const Icon(
-                    Icons.bookmark_border_outlined,
-                    color: Colors.white,
-                  ),
-                  margin: const EdgeInsets.only(right: 10),
-                )
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Icon(
+                        Icons.bookmark_border_outlined,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    )
+                  ],
+                ),
               ],
             ),
           ),
