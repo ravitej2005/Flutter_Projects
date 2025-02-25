@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_application/question.dart';
 import 'package:quiz_application/quiz.dart';
 import 'package:remixicon/remixicon.dart';
 
@@ -8,6 +9,7 @@ class home extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -69,6 +71,9 @@ class home extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                dummyQuestions.forEach((Question) {
+                  Question.selectedOption = null;
+                });
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return quiz(nameController: nameController);
                 }));

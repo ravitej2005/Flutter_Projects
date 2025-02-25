@@ -2,7 +2,6 @@ class Question {
   String problem;
   List<String> options = [];
   int correctOptionIndex;
-  bool isSubmitted = false;
   int ?selectedOption;
 
   Question(

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:quiz_application/question.dart';
 import 'package:quiz_application/question_screen.dart';
 import 'package:quiz_application/score.dart';
-import 'package:remixicon/remixicon.dart';
+// import 'package:quiz_application/score.dart';
+// import 'package:remixicon/remixicon.dart';
 
 // ignore: must_be_immutable, camel_case_types
 class quiz extends StatefulWidget {
   TextEditingController nameController;
-  bool quizCompleted = false;
   int index = 0;
-  int correctAnsCount = 0;
+  bool allAttempted = false;
   quiz({required this.nameController, super.key});
 
   @override
@@ -17,69 +17,50 @@ class quiz extends StatefulWidget {
 }
 
 class _quizState extends State<quiz> {
-  void updateSubmitState(Question obj) {
+  void incrementIndex() {
     setState(() {
-      obj.isSubmitted = true;
-      if (widget.index == dummyQuestions.length - 1) {
-        widget.quizCompleted = true;
-      }
+      widget.index++;
     });
   }
 
-  void updateCorrectCount(int correctAnsCount) {
-    widget.correctAnsCount = correctAnsCount;
+  void decrementIndex() {
+    setState(() {
+      widget.index--;
+    });
+  }
+
+  void setAllAttempted() {
+    setState(() {
+      widget.allAttempted = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: dummyQuestions[widget.index].isSubmitted
+      resizeToAvoidBottomInset: false,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: widget.allAttempted
           ? Container(
-              padding: const EdgeInsets.only(bottom: 100),
+              margin: EdgeInsets.only(bottom: 130),
               child: FloatingActionButton.extended(
-                elevation: 0,
-                highlightElevation: 0,
-                backgroundColor: Colors.white,
                 onPressed: () {
-                  if (widget.index < dummyQuestions.length - 1) {
-                    setState(() {
-                      widget.index++;
-                    });
-                  } else if (widget.index == dummyQuestions.length - 1) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return score(correctAnsCount: widget.correctAnsCount);
-                    }));
-                  }
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return score();
+                    },
+                  ));
                 },
-                label: Padding(
-                  padding: const EdgeInsets.all(8.0).copyWith(left: 15),
-                  child: Row(
-                    children: [
-                      Text(
-                        widget.quizCompleted ? "Submit Test" : "Next",
-                        style: const TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const Icon(
-                        Remix.arrow_right_line,
-                        size: 18,
-                      )
-                    ],
-                  ),
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white, // Optional icon
+                label: const Text(
+                  "Submit Test",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
             )
           : null,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -94,10 +75,11 @@ class _quizState extends State<quiz> {
         ),
       ),
       body: question_screen(
-        questionObj: dummyQuestions[widget.index],
         questionIndex: widget.index,
-        updateSubmitState: updateSubmitState,
-        updateCorrectCount: updateCorrectCount,
+        questionObj: dummyQuestions[widget.index],
+        incrementIndex: incrementIndex,
+        decrementIndex: decrementIndex,
+        setAllAttempted: setAllAttempted,
       ),
     );
   }

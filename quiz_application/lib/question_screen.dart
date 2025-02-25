@@ -1,94 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_application/question.dart';
 import 'package:remixicon/remixicon.dart';
 
 class question_screen extends StatefulWidget {
   final questionObj;
   final questionIndex;
-  final updateSubmitState;
-  final updateCorrectCount;
-  question_screen(
-      {required this.questionObj,
-      required this.questionIndex,
-      required this.updateSubmitState,
-      required this.updateCorrectCount,
+  final incrementIndex;
+  final decrementIndex;
+  final setAllAttempted;
+  const question_screen(
+      {this.questionObj,
+      this.questionIndex,
+      this.incrementIndex,
+      this.decrementIndex,
+      this.setAllAttempted,
       super.key});
 
   @override
   State<question_screen> createState() => _question_screenState();
 }
 
-// bool isSelected = false;
-var correctAnsCount = 0;
-
 class _question_screenState extends State<question_screen> {
-  Color? giveTitleColor(int index) {
-    if (widget.questionObj.isSubmitted == true) {
-      if (widget.questionObj.selectedOption ==
-          widget.questionObj.correctOptionIndex) {
-        if (index == widget.questionObj.selectedOption) {
-          return Colors.green[50];
-        } else {
-          return null;
-        }
-      } else {
-        if (index == widget.questionObj.selectedOption) {
-          return Colors.red[100];
-        } else {
-          if (index == widget.questionObj.correctOptionIndex) {
-            return Colors.green[50];
-          } else {
-            return null;
-          }
-        }
-      }
-    }
-    return null;
-  }
-
-  Icon? giveSecondaryIcon(int index) {
-    if (widget.questionObj.isSubmitted == true) {
-      if (widget.questionObj.selectedOption ==
-          widget.questionObj.correctOptionIndex) {
-        if (index == widget.questionObj.selectedOption) {
-          return const Icon(
-            Remix.check_line,
-            color: Colors.green,
-            size: 23,
-          );
-        } else {
-          return null;
-        }
-      } else {
-        if (index == widget.questionObj.selectedOption) {
-          return const Icon(
-            Remix.close_fill,
-            color: Colors.red,
-            size: 23,
-          );
-        } else {
-          if (index == widget.questionObj.correctOptionIndex) {
-            return const Icon(
-              Remix.check_line,
-              color: Colors.green,
-              size: 23,
-            );
-          } else {
-            return null;
-          }
-        }
-      }
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
-    if ((widget.questionObj.selectedOption ==
-        widget.questionObj.correctOptionIndex) && widget.questionObj.isSubmitted) {
-      correctAnsCount++;
-      widget.updateCorrectCount(correctAnsCount);
-    }
-
     return Center(
       child: Container(
         decoration: const BoxDecoration(
@@ -145,39 +79,26 @@ class _question_screenState extends State<question_screen> {
                 itemCount: widget.questionObj.options.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  print(
-                      "in listview builder $widget.questionObj.selectedOption");
-                  print("correct opt ${widget.questionObj.correctOptionIndex}");
-                  print("submit status ${widget.questionObj.isSubmitted}");
-                  print(
-                      "calculation ${(widget.questionObj.isSubmitted == true) && (widget.questionObj.selectedOption == widget.questionObj.correctOptionIndex)}");
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: giveTitleColor(index),
-                    ),
-                    child: RadioListTile(
-                      selected: false,
-                      secondary: giveSecondaryIcon(index),
-                      // tileColor: Colors.white,
-                      // materialTapTargetSize: MaterialTapTargetSize.padded,
-                      dense: true,
-                      value: index,
-                      groupValue: widget.questionObj.selectedOption,
-                      onChanged: (selectedOpt) {
-                        widget.questionObj.isSubmitted
-                            ? null
-                            : setState(() {
-                                widget.questionObj.selectedOption = selectedOpt;
-                              });
-                      },
-                      title: Text(
-                        "${widget.questionObj.options[index]}",
-                        style: const TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),
+                  return RadioListTile(
+                    selected: false,
+                    dense: true,
+                    value: index,
+                    groupValue: widget.questionObj.selectedOption,
+                    onChanged: (selectedOpt) {
+                      setState(() {
+                        widget.questionObj.selectedOption = selectedOpt;
+                        if (widget.questionIndex == dummyQuestions.length - 1) {
+                          widget.setAllAttempted();
+                        }
+                      });
+                    },
+                    title: Text(
+                      "${widget.questionObj.options[index]}",
+                      style: const TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: Colors.black,
                       ),
                     ),
                   );
@@ -186,26 +107,69 @@ class _question_screenState extends State<question_screen> {
               height: 30,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    widget.updateSubmitState(widget.questionObj);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    fixedSize: const Size(100, 50),
-                  ),
-                  child: const Text(
-                    "Submit",
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 15,
-                      color: Colors.white,
-                    ),
-                  ),
-                )
+                widget.questionIndex != 0
+                    ? TextButton(
+                        onPressed: () {
+                          widget.decrementIndex();
+                        },
+                        child: const Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Remix.arrow_left_line,
+                              size: 20,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              "Previous",
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 17,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox(
+                        height: 48,
+                      ),
+                widget.questionIndex != (dummyQuestions.length - 1) &&
+                        widget.questionObj.selectedOption != null
+                    ? TextButton(
+                        onPressed: () {
+                          widget.incrementIndex();
+                        },
+                        child: const Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Next",
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 17,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Icon(
+                              Remix.arrow_right_line,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      )
+                    : const SizedBox(
+                        height: 48,
+                      )
               ],
             )
           ],
